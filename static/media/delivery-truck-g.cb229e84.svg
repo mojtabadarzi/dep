@@ -1,0 +1,14 @@
+<svg id="Delivery_Truck_Clock" data-name="Delivery, Truck, Clock" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="Group_170" data-name="Group 170" transform="translate(8.17 6)">
+    <path id="Path_1800" data-name="Path 1800" stroke="#bdc8d6" d="M15,8h4.323a1,1,0,0,1,.928.629l1.606,4.014a2.007,2.007,0,0,1,.143.742v5.948a1,1,0,0,1-1,1H19.169" fill="none" transform="translate(-8.17 -8)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" fill-rule="evenodd"/>
+    <path id="Path_1801" data-name="Path 1801" stroke="#bdc8d6" d="M16,20.42H8.17" fill="none" transform="translate(-8.17 -8)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" fill-rule="evenodd"/>
+  </g>
+  <path id="Path_1802" data-name="Path 1802" d="M22,15H18V11h3.2" transform="translate(0 -2)" fill="none" stroke="#bdc8d6" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+  <g id="Group_171" data-name="Group 171" transform="translate(2 4)">
+    <path id="Path_1803" data-name="Path 1803" d="M4.134,6H14a1,1,0,0,1,1,1v9H2" transform="translate(-2 -6)" fill="none" stroke="#bdc8d6" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <path id="Path_1805" data-name="Path 1805" d="M18.7,19.3a1.584,1.584,0,1,1-2.24,0,1.584,1.584,0,0,1,2.24,0" transform="translate(-2 -6)" fill="none" stroke="#bdc8d6" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <path id="Path_1806" data-name="Path 1806" d="M7.7,19.3a1.584,1.584,0,1,1-2.24,0,1.584,1.584,0,0,1,2.24,0" transform="translate(-2 -6)" fill="none" stroke="#bdc8d6" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <path id="Path_1807" data-name="Path 1807" d="M5,20.416H3a1,1,0,0,1-1-1V7A1,1,0,0,1,3,6H4.238" transform="translate(-2 -6)" fill="none" stroke="#bdc8d6" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+  </g>
+  <path id="Path_1809" data-name="Path 1809" d="M0,0H24V24H0Z" fill="none"/>
+</svg>

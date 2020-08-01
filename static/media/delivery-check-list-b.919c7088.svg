@@ -1,0 +1,12 @@
+<svg id="Delivery_Check_List" data-name="Delivery, Check, List" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="Group_159" data-name="Group 159">
+    <path id="Path_1714" data-name="Path 1714" d="M8,4,9.3,2.375A1,1,0,0,1,10.081,2H13.92a1,1,0,0,1,.781.375L16,4h0V5a1,1,0,0,1-1,1H9A1,1,0,0,1,8,5V4Z" fill="none" stroke="#1641ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <path id="Path_1715" data-name="Path 1715" d="M9.667,9.333,8,11,7,10" fill="none" stroke="#1641ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <path id="Path_1716" data-name="Path 1716" d="M13,18h3" fill="none" stroke="#1641ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <path id="Path_1717" data-name="Path 1717" d="M13,10h3" fill="none" stroke="#1641ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <path id="Path_1718" data-name="Path 1718" d="M9.667,13.333,8,15,7,14" fill="none" stroke="#1641ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <path id="Path_1719" data-name="Path 1719" d="M13,14h3" fill="none" stroke="#1641ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <path id="Path_1720" data-name="Path 1720" d="M16,4h2a2,2,0,0,1,2,2V20a2,2,0,0,1-2,2H6a2,2,0,0,1-2-2V6A2,2,0,0,1,6,4H8" fill="none" stroke="#1641ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+  </g>
+  <path id="Path_1721" data-name="Path 1721" d="M0,0H24V24H0Z" fill="none"/>
+</svg>
