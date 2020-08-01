@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   inkscape:version="1.0 (4035a4f, 2020-05-01)"
+   sodipodi:docname="arrow-down-dark copy.svg"
+   xml:space="preserve"
+   style="enable-background:new 0 0 451.847 451.847;"
+   viewBox="0 0 451.847 451.847"
+   height="512px"
+   width="512px"
+   y="0px"
+   x="0px"
+   id="Capa_1"
+   version="1.1"><metadata
+   id="metadata21"><rdf:RDF><cc:Work
+       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><defs
+   id="defs19" /><sodipodi:namedview
+   inkscape:current-layer="Capa_1"
+   inkscape:window-maximized="1"
+   inkscape:window-y="23"
+   inkscape:window-x="0"
+   inkscape:cy="296.29885"
+   inkscape:cx="314.33184"
+   inkscape:zoom="0.6870292"
+   showgrid="false"
+   id="namedview17"
+   inkscape:window-height="855"
+   inkscape:window-width="1440"
+   inkscape:pageshadow="2"
+   inkscape:pageopacity="0"
+   guidetolerance="10"
+   gridtolerance="10"
+   objecttolerance="10"
+   borderopacity="1"
+   bordercolor="#666666"
+   pagecolor="#ffffff" /><g
+   transform="rotate(-90,225.92375,225.92325)"
+   id="g14"><g
+     id="g12">
+	<path
+   id="path10"
+   fill="#536b88"
+   data-old_color="#000000"
+   class="active-path"
+   data-original="#000000"
+   d="m 225.923,354.706 c -8.098,0 -16.195,-3.092 -22.369,-9.263 L 9.27,151.157 c -12.359,-12.359 -12.359,-32.397 0,-44.751 12.354,-12.354 32.388,-12.354 44.748,0 L 225.923,278.321 397.829,106.412 c 12.359,-12.354 32.391,-12.354 44.744,0 12.365,12.354 12.365,32.392 0,44.751 L 248.292,345.449 c -6.177,6.172 -14.274,9.257 -22.369,9.257 z" />
+</g></g> </svg>
