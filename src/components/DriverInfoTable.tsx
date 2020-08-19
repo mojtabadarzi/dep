@@ -130,7 +130,7 @@ function DriverInfoTable(props) {
 
       return (
         <tr
-          key={id}
+          key={id * 18}
           className="cursor-pointer hover:opacity-75"
           onClick={() => goToEditPage(editId)}
         >

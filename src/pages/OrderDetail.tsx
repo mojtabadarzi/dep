@@ -85,6 +85,7 @@ function OrderDetail(props) {
         const agentInfo = [{}]
         const wasteInfo = [{}]
         if (data.userorderwastes.length > 0) {
+          console.log('1 : ', data.userorderwastes)
           for (let i = 0; i < data.userorderwastes.length; i++) {
             userInfo[i] = {
               id: data?.userorderwastes[i]?.waste?.id || 0,
@@ -96,6 +97,8 @@ function OrderDetail(props) {
           }
         }
         if (data.agentorderwastes.length > 0) {
+          console.log('2 : ', data.agentorderwastes)
+
           for (let i = 0; i < data.agentorderwastes.length; i++) {
             agentInfo[i] = {
               agentWeight: data?.agentorderwastes[i]?.weight || 0,
@@ -105,9 +108,12 @@ function OrderDetail(props) {
           }
         }
         if (userInfo.length > 0) {
+          console.log('3 : ', userInfo)
+
           for (let i = 0; i < userInfo.length; i++) {
-            wasteInfo[i] = Object.assign(userInfo[i] || [{}], agentInfo[i] || [{}])
+            wasteInfo[i] = Object.assign(userInfo[i] || {}, agentInfo[i] || {})
           }
+          console.log('wasteInfo : ', wasteInfo)
         }
         setWastesInfo(wasteInfo || [{}])
         setOrderNumber(data?.code || 0)
@@ -220,7 +226,7 @@ function OrderDetail(props) {
             </div>
           ) : (
             <>
-              <Table data={wastesInfo} loading={orderDetailListLoading} />
+              <Table data={wastesInfo || [{}]} loading={orderDetailListLoading} />
               <div className="flex justify-end mt-4">
                 <BigTextIcon
                   icon={BasketBlack}
