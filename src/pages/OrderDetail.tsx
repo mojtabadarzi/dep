@@ -63,20 +63,20 @@ function OrderDetail(props) {
         setOrderDetailListLoading(false)
         const driverInfo = [
           {
-            avatar: data['agent_vehicle']['agent']['avatar'],
-            fullname: data['agent_vehicle']['agent']['fullname'],
-            phone: data['agent_vehicle']['agent']['phone_number'],
-            plate: data['agent_vehicle']['vehicle']['plate_number'],
+            avatar: data?.agent_vehicle?.agent?.avatar || Nopic,
+            fullname: data?.agent_vehicle?.agent?.fullname || ' ... ',
+            phone: data?.agent_vehicle?.agent?.phone_number || 0,
+            plate: data?.agent_vehicle?.vehicle?.plate_number || 0,
             vehicle:
-              data['agent_vehicle']['vehicle']['brand'] +
+              (data?.agent_vehicle?.vehicle?.brand || ' ... ') +
               ' - ' +
-              data['agent_vehicle']['vehicle']['color'] +
+              (data?.agent_vehicle?.vehicle?.color || ' ... ') +
               ' - ' +
-              data['agent_vehicle']['vehicle']['model'],
-            workers: data['vehicle_worker'],
+              (data?.agent_vehicle?.vehicle?.model || ' ... '),
+            workers: data?.vehicle_worker || [],
             company: 'پارسیان ',
-            status: data['agent_vehicle']['agent']['status'],
-            location: '',
+            status: data?.agent_vehicle?.agent?.status || 100,
+            location: ' ... ',
           },
         ]
         setDriverInfo(driverInfo)
@@ -84,30 +84,36 @@ function OrderDetail(props) {
         const userInfo = [{}]
         const agentInfo = [{}]
         const wasteInfo = [{}]
-        for (let i = 0; i < data.userorderwastes.length; i++) {
-          userInfo[i] = {
-            id: data['userorderwastes'][i]['waste']['id'],
-            type: data['userorderwastes'][i]['waste']['type'],
-            userWeight: data['userorderwastes'][i]['weight'],
-            userFee: data['userorderwastes'][i]['fee'],
-            userTime: data['userorderwastes'][i]['created_time'],
+        if (data.userorderwastes.length > 0) {
+          for (let i = 0; i < data.userorderwastes.length; i++) {
+            userInfo[i] = {
+              id: data?.userorderwastes[i]?.waste?.id || 0,
+              type: data?.userorderwastes[i]?.waste?.type || ' ... ',
+              userWeight: data?.userorderwastes[i]?.weight || 0,
+              userFee: data?.userorderwastes[i]?.fee || 0,
+              userTime: data?.userorderwastes[i]?.created_time || 0,
+            }
           }
         }
-        for (let i = 0; i < data.agentorderwastes.length; i++) {
-          agentInfo[i] = {
-            agentWeight: data['agentorderwastes'][i]['weight'],
-            agentFee: data['agentorderwastes'][i]['fee'],
-            agentTime: data['agentorderwastes'][i]['created_time'],
+        if (data.agentorderwastes.length > 0) {
+          for (let i = 0; i < data.agentorderwastes.length; i++) {
+            agentInfo[i] = {
+              agentWeight: data?.agentorderwastes[i]?.weight || 0,
+              agentFee: data?.agentorderwastes[i]?.fee || 0,
+              agentTime: data?.agentorderwastes[i]?.created_time || 0,
+            }
           }
         }
-        for (let i = 0; i < userInfo.length; i++) {
-          wasteInfo[i] = Object.assign(userInfo[i], agentInfo[i])
+        if (userInfo.length > 0) {
+          for (let i = 0; i < userInfo.length; i++) {
+            wasteInfo[i] = Object.assign(userInfo[i] || [{}], agentInfo[i] || [{}])
+          }
         }
-        setWastesInfo(wasteInfo)
-        setOrderNumber(data['code'])
-        setTotalPrice(data['total_price'])
-        setTotalWeight(data['total_weight'])
-        setWasteStatus(data['status'])
+        setWastesInfo(wasteInfo || [{}])
+        setOrderNumber(data?.code || 0)
+        setTotalPrice(data?.total_price || 0)
+        setTotalWeight(data?.total_weight || 0)
+        setWasteStatus(data?.status || 100)
       })
       .catch((error) => {
         console.log('error.response ___ ', error.response)

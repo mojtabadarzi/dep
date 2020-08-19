@@ -7,6 +7,7 @@ import NoItem from '../components/NoItem'
 //const
 import { Nopic } from 'src/utils/Icons'
 import { kioskStatusConvertorIcon } from 'src/utils/helpers'
+import { DAYS_OF_WEEK_NUMBER_TO_PERSIAN } from 'src/utils/constant'
 
 const state = {
   headers: [
@@ -84,8 +85,14 @@ function KioskTable(props) {
         return arr.map((item, index) => {
           return (
             <div key={index}>
-              از<span className="mx-1 font-yekanbold"> {item['start_day']} </span>
-              تا<span className="mx-1 font-yekanbold"> {item['end_day']} </span>
+              از
+              <span className="mx-1 font-yekanbold">
+                {DAYS_OF_WEEK_NUMBER_TO_PERSIAN[item['start_day']]}{' '}
+              </span>
+              تا
+              <span className="mx-1 font-yekanbold">
+                {DAYS_OF_WEEK_NUMBER_TO_PERSIAN[item['end_day']]}{' '}
+              </span>
               ساعت{' '}
               <span className="mx-1 font-yekanbold">
                 {' '}

@@ -14,7 +14,7 @@ import ExportPdf from 'src/components/ExportPdf'
 import MessageBox from '../components/MessageBox'
 
 //const
-import { UserSearch, SearchWhite, PlusWhite } from '../utils/Icons'
+import { UserSearch, SearchWhite, PlusWhite, Nopic } from '../utils/Icons'
 import { SORTING } from '../utils/constant'
 import { baseURL, ALL_AGENT } from '../config'
 import { handleError } from '../utils/helpers'
@@ -80,19 +80,20 @@ function Drivers({ history }) {
         const data = []
         for (let i = 0; i < results.length; i++) {
           data[i] = {
-            id: results[i]['agent']['id'],
-            editId: results[i]['id'],
-            avatar: results[i]['agent']['avatar'],
-            fullname: results[i]['agent']['fullname'],
-            phone: results[i]['agent']['phone_number'],
-            plate: results[i]['plate_number'],
-            vehicle: results[i]['brand'] + ' - ' + results[i]['model'],
-            workers: results[i]['vehicleworkers'],
+            id: results[i]?.agent?.id || 0,
+            editId: results[i]?.id,
+            avatar: results[i]?.agent?.avatar || Nopic,
+            fullname: results[i]?.agent?.fullname || ' ... ',
+            phone: results[i]?.agent?.phone_number || 0,
+            plate: results[i]?.plate_number || ' ... ',
+            vehicle: (results[i]?.brand || ' ... ') + ' - ' + (results[i]?.model || ' ... '),
+            workers: results[i]?.vehicleworkers || [],
             company: ' ... ',
-            status: results[i]['status'],
-            location: '',
+            status: results[i]?.status || 100,
+            location: ' ... ',
           }
         }
+        console.log(results)
         setDriverList((prevState) => prevState.concat(data))
         setDriverListLoading(false)
       })

@@ -1,10 +1,14 @@
 import React, { useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
-import star from 'src/assets/images/icons/rates.svg'
-import activestar from 'src/assets/images/icons/activestar.svg'
+//redux
+import { useDispatch } from 'react-redux'
+import { clearUserAction } from '../action/user'
+import { useSelectorUserInfo } from '../selectors/selectors'
+//components
+import Button from './Button'
 import Avatar from './Avatar'
 import SideItem from './SideItem'
-import { getLocalStorage, setLocalStorage } from 'src/utils/helpers'
+//const
 import {
   LiveReportWhite,
   LiveReportBlue,
@@ -28,18 +32,13 @@ import {
   List,
   SidebarDashed,
   LogoutWhite,
+  CloseWhite,
+  Nopic,
 } from '../utils/Icons'
-import Button from './Button'
-
-//redux
-import { useDispatch } from 'react-redux'
-import { clearUserAction } from '../action/user'
-import { useSelectorUserInfo } from '../selectors/selectors'
-
-//const
-import { CloseWhite, Nopic } from 'src/utils/Icons'
 import { ROLES_NUMBER_TO_PERSIAN } from '../utils/constant'
-import { baseURL } from '../config'
+import star from 'src/assets/images/icons/rates.svg'
+import activestar from 'src/assets/images/icons/activestar.svg'
+import { getLocalStorage, setLocalStorage } from 'src/utils/helpers'
 
 function Sidebar({ history }) {
   const [open, setOpen] = React.useState(false)
@@ -85,7 +84,7 @@ function Sidebar({ history }) {
         <div className="w-full flex justify-center">
           <div className="flex flex-col items-center">
             <Avatar
-              pic={`${baseURL}${user_detail?.avatar}` || Nopic}
+              pic={user_detail?.avatar || Nopic}
               width="64px"
               height="64px"
               padding="2px"

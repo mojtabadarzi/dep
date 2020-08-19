@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Route, Switch, withRouter } from 'react-router-dom'
 
+//pages
+
 //components
 import Template from './container/Template'
 import Login from './pages/Login'

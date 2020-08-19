@@ -111,37 +111,37 @@ function Table({ data, loading }) {
           </td>
           <td>
             <div className="py-4 px-2 text-xs font-yekanlight h-12" style={middleTD}>
-              {type}
+              {type || ' ... '}
             </div>
           </td>
           <td>
             <div className="py-4 px-2 text-xs font-yekanlight h-12 text-primary" style={middleTD}>
-              {userWeight} کیلوگرم
+              {userWeight || 0} کیلوگرم
             </div>
           </td>
           <td>
             <div className="py-4 px-2 text-xs font-yekanlight h-12 text-primary" style={middleTD}>
-              {agentWeight} کیلوگرم
+              {agentWeight || 0} کیلوگرم
             </div>
           </td>
           <td>
             <div className="py-4 px-2 text-xs font-yekanlight h-12" style={middleTD}>
-              {timeStampToJalali(userTime)}
+              {timeStampToJalali(userTime || 0)}
             </div>
           </td>
           <td>
             <div className="py-4 px-2 text-xs font-yekanlight h-12" style={middleTD}>
-              {timeStampToJalali(agentTime)}
+              {timeStampToJalali(agentTime || 0)}
             </div>
           </td>
           <td>
             <div className="py-4 px-2 text-xs font-yekanlight h-12" style={middleTD}>
-              {userFee} تومان
+              {userFee || 0} تومان
             </div>
           </td>
           <td>
             <div className="py-4 px-2 text-xs font-yekanlight h-12 text-primary" style={lastTD}>
-              {agentFee} تومان
+              {agentFee || 0} تومان
             </div>
           </td>
         </tr>

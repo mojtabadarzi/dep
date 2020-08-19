@@ -1,12 +1,17 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
-import dobare from '../assets/images/icons/dobare.svg'
-import { BellGray } from '../utils/Icons'
-import profile from '../assets/images/pics/profile.webp'
-import Avatar from './Avatar'
+//redux
+import { useSelectorUserInfo } from '../selectors/selectors'
+//components
 import Notification from './Notification'
+import Avatar from './Avatar'
+//const
+import dobare from '../assets/images/icons/dobare.svg'
+import { BellGray, Nopic } from '../utils/Icons'
 
 function Topbar(props) {
+  const user_detail = useSelectorUserInfo()?.user_detail
+
   const { history } = props
   return (
     <div className="topbar h-20 w-full bg-white pr-8 pl-8 flex flex-row justify-between items-center ">
@@ -28,7 +33,7 @@ function Topbar(props) {
           />
         </div>
         <Avatar
-          pic={profile}
+          pic={user_detail?.avatar || Nopic}
           online={true}
           width="52px"
           height="52px"

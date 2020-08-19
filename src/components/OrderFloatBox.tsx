@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { withRouter } from 'react-router-dom'
 //icons
 import plak from 'src/assets/images/pics/plak.svg'
 import {
@@ -12,17 +12,17 @@ import {
 } from 'src/utils/Icons'
 
 //components
-import AgentStatus from '../components/AgentStatus'
+import OrderStatus from '../components/OrderStatus'
 import Avatar from './Avatar'
 import TextIcon from './TextIcon'
 import NoItem from '../components/NoItem'
 
 //const
 import { timeStampToJalali } from '../utils/helpers'
-import { agentStatusConvertorIcon } from 'src/utils/helpers'
+import { OrderStatusToIcon } from 'src/utils/helpers'
 
 const OrderFloatBox = (props) => {
-  const { closeFloat, data, loading } = props
+  const { closeFloat, data, loading, history } = props
   const {
     id,
     userFullName,
@@ -33,11 +33,11 @@ const OrderFloatBox = (props) => {
     totalPrice,
     agentFullName,
     agentAvatar,
-    agentStatus,
     vehicleName,
     vehiclePlate,
     createdTime,
     processTime,
+    status,
   } = data
 
   const render = () => {
@@ -61,7 +61,7 @@ const OrderFloatBox = (props) => {
                 alt="بستن"
               />
               <TextIcon
-                content={id}
+                content={id || 0}
                 border={true}
                 borderWidth="1"
                 brColor="#1641ff"
@@ -81,20 +81,20 @@ const OrderFloatBox = (props) => {
               />
               <div className="flex flex-col mr-2">
                 <div className="font-yekanbold text-sm text-dark">
-                  {userFullName}
+                  {userFullName || ' ... '}
                   <span className="font-yekanlight text-xs text-color4 mr-2">(کاربر)</span>
                 </div>
-                <span className="font-yekanlight text-xs text-color2">{userPhoneNumber}</span>
+                <span className="font-yekanlight text-xs text-color2">{userPhoneNumber || 0}</span>
               </div>
             </div>
             <div className=" flex items-center mt-2 bg-color1 p-1 rounded-lg">
               <img className="ml-2" src={PinLocationGray} alt="کاربر" />
-              <span className="font-yekanlight text-xxs text-color4">{userAddress}</span>
+              <span className="font-yekanlight text-xxs text-color4">{userAddress || ' ... '}</span>
             </div>
           </div>
           <div className="border-b border-color1 py-2">
             <div className=" flex items-center mb-2">
-              <img className="ml-2" src={DeliveryCheckListGray} alt="سفارش" />
+              <img className="ml-2" src={DeliveryCheckListGray || Nopic} alt="سفارش" />
               <span className="font-yekanlight text-xs text-color4">اطلاعات سفارش</span>
             </div>
             <div className="h-32 pb-4 overflow-scroll">
@@ -109,12 +109,18 @@ const OrderFloatBox = (props) => {
                       <div className="flex justify-start items-center">
                         <span className="font-yekanlight text-xs text-color4 w-4">{index + 1}</span>
                         <div className="flex flex-col">
-                          <span className="font-yekanregular text-xs text-dark">{waste?.type}</span>
-                          <span className="font-yekanregular text-xs text-color2">{fee} تومان</span>
+                          <span className="font-yekanregular text-xs text-dark">
+                            {waste?.type || ' ... '}
+                          </span>
+                          <span className="font-yekanregular text-xs text-color2">
+                            {fee || 0} تومان
+                          </span>
                         </div>
                       </div>
 
-                      <span className="font-yekanregular text-xs text-primary">{weight} کیلو</span>
+                      <span className="font-yekanregular text-xs text-primary">
+                        {weight || 0} کیلو
+                      </span>
                     </div>
                   )
                 })
@@ -123,13 +129,13 @@ const OrderFloatBox = (props) => {
               )}
               <div className="flex justify-between items-center mt-1">
                 <span className="font-yekanregular text-xs text-dark">ارزش کل سفارش</span>
-                <span className="font-yekanbold text-xs text-primary">{totalPrice} تومان</span>
+                <span className="font-yekanbold text-xs text-primary">{totalPrice || 0} تومان</span>
               </div>
             </div>
           </div>
           <div className="flex flex-col border-b border-color1 py-2">
             <div className=" flex  items-center mb-2">
-              <img className="ml-2" src={DeliveryTruckGray} alt="راننده" />
+              <img className="ml-2" src={DeliveryTruckGray || Nopic} alt="راننده" />
               <span className="font-yekanlight text-xs text-color4">راننده اختصاص شده</span>
             </div>
             <div className="flex flex-col justify-around items-around">
@@ -151,8 +157,10 @@ const OrderFloatBox = (props) => {
                 </div>
               </div>
               <div className="flex  justify-around items-center mb-1">
-                <div className="font-yekanbold text-sm text-dark">{agentFullName}</div>
-                <span className="font-yekanregular text-xs text-dark ">{vehicleName}</span>
+                <div className="font-yekanbold text-sm text-dark">{agentFullName || ' ... '}</div>
+                <span className="font-yekanregular text-xs text-dark ">
+                  {vehicleName || ' ... '}
+                </span>
               </div>
             </div>
           </div>
@@ -160,27 +168,38 @@ const OrderFloatBox = (props) => {
             <div className="float-bottom-grabient-white"></div>
 
             <div className=" flex items-center mb-2">
-              <img className="ml-2" src={DeliveryBoxGray} alt="سفارش" />
+              <img className="ml-2" src={DeliveryBoxGray || Nopic} alt="سفارش" />
               <span className="font-yekanlight text-xs text-color4">وضعیت سفارش</span>
             </div>
             <div className="flex justify-between items-center mb-2">
               <span className="font-yekanregular text-xs text-color2">تاریخ ثبت سفارش</span>
               <span className="font-yekanbold text-xs text-dark">
-                {timeStampToJalali(createdTime)}
+                {timeStampToJalali(createdTime || 0)}
               </span>
             </div>
             <div className="flex justify-between items-center mb-2">
               <span className="font-yekanregular text-xs text-color2">وضعیت</span>
-              <AgentStatus icon={agentStatusConvertorIcon(agentStatus)} status={agentStatus} />
+              <OrderStatus
+                icon={OrderStatusToIcon(status || 100)}
+                status={status || 100}
+                borderWidth={status === 0 ? 1 : 0}
+                border={true}
+              />
             </div>
             <div className="flex justify-between items-center ">
               <span className="font-yekanregular text-xs text-color2">تاریخ پردازش</span>
               <span className="font-yekanbold text-xs text-dark">
-                {timeStampToJalali(processTime)}
+                {timeStampToJalali(processTime) || ' ... '}
               </span>
             </div>
           </div>
-          <div className="driver-float-btn">جزییات سفارش</div>
+          <button
+            className="driver-float-btn"
+            onClick={() => history.push(`/orders/detail/${id}`)}
+            disabled={id ? false : true}
+          >
+            جزییات سفارش
+          </button>
         </div>
       )
     } else {
@@ -194,4 +213,4 @@ const OrderFloatBox = (props) => {
   return <div className="order-float-box">{render()}</div>
 }
 
-export default OrderFloatBox
+export default withRouter(OrderFloatBox)

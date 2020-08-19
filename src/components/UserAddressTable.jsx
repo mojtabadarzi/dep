@@ -72,7 +72,7 @@ function UserAddressTable(props) {
     <div className="my-table">
       <table id="table">
         <thead>{renderTableHeader()}</thead>
-        <tbody>{data.length !== 0 ? renderTableData() : ''}</tbody>
+        <tbody>{data.length !== 0 ? renderTableData() : <tr></tr>}</tbody>
       </table>
       {data.length === 0 ? <NoItem /> : ''}
     </div>

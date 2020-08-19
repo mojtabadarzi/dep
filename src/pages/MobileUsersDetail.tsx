@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-
 //redux
 import { useSelectorUserInfo } from '../selectors/selectors'
-
 //components
 import PageTitle from 'src/components/PageTitle'
 import SimpleCollapseWrapper from 'src/container/SimpleCollapseWrapper'
@@ -13,30 +11,27 @@ import OrdersUserTable from 'src/components/OrdersUserTable'
 import InnerContent from 'src/container/InnerContent'
 import MessageBox from '../components/MessageBox'
 import PerformanceReport from '../components/PerformanceReport'
-import MobileUsersList from '../components/MobileUsersList'
 import Space from '../components/Space'
 //const
-import { PlusWhite, ChevronRight } from 'src/utils/Icons'
-import { baseURL, USER_DETAIL, MOBILE_USERS } from '../config'
+import { ChevronRight } from 'src/utils/Icons'
+import { baseURL, USER_DETAIL } from '../config'
 import { handleError } from '../utils/helpers'
 
-function MobileUsers() {
+function MobileUsers({ location }) {
   const token = useSelectorUserInfo().token
   const header = {
     headers: { Authorization: `jwt ${token}` },
   }
+  const ID = location.pathname.substring(14)
+
   const [messageClass, setMessageClass] = useState('message-hidden')
   const [message, setMessage] = useState('message-hidden')
 
   const [userDetail, setUserDetail] = useState({})
   const [userDetailLoading, setUserDetailLoading] = useState(true)
 
-  const [mobileUsers, setMobileUsers] = useState([])
-  const [mobileUsersLoading, setMobileUsersLoading] = useState(true)
-
   useEffect(() => {
     getUserDetail()
-    getMobileUsers()
   }, [])
 
   const getUserDetail = () => {
@@ -44,20 +39,20 @@ function MobileUsers() {
     setUserDetailLoading(true)
     setMessageClass('message-hidden')
     axios
-      .get(`${baseURL}${USER_DETAIL}10`, header)
+      .get(`${baseURL}${USER_DETAIL}${ID}`, header)
       .then((response) => {
         const { data } = response
         console.log('RES : ', response)
 
         const detail = {
-          fullname: data['fullname'],
-          email: data['email'],
-          phonenumber: data['phone_number'],
-          username: data['username'],
-          devices: data['devices'],
-          addresses: data['addresses'],
-          userorders: data['userorders'],
-          seasonorder: data['season_order'],
+          fullname: data?.fullname || ' ... ',
+          email: data?.email || ' ... ',
+          phonenumber: data?.phone_number || 0,
+          username: data?.username || ' ... ',
+          devices: data?.devices || [],
+          addresses: data?.addresses || [],
+          userorders: data?.userorders || [],
+          seasonorder: data?.season_order || [],
         }
         setUserDetail(detail)
         setUserDetailLoading(false)
@@ -65,35 +60,6 @@ function MobileUsers() {
       .catch((error) => {
         console.log('error.response ___ ', error.response)
         setUserDetailLoading(false)
-        if (error.response && error.response.status) {
-          const { status, msg = '' } = error.response
-          setMessage(handleError(status, msg))
-          setMessageClass('message-show')
-        } else if (error.response === undefined) {
-          setMessage(handleError(undefined, ''))
-          setMessageClass('message-show')
-        } else {
-          setMessage(handleError('', ''))
-          setMessageClass('message-show')
-        }
-      })
-  }
-
-  const getMobileUsers = () => {
-    setMobileUsersLoading(true)
-    setMessageClass('message-hidden')
-    axios
-      .get(`${baseURL}${MOBILE_USERS}`, header)
-      .then((response) => {
-        const { data } = response
-        console.log('RES MOBILE : ', data)
-
-        setMobileUsers(data['results'])
-        setMobileUsersLoading(false)
-      })
-      .catch((error) => {
-        console.log('error.response ___ ', error.response)
-        setMobileUsersLoading(false)
         if (error.response && error.response.status) {
           const { status, msg = '' } = error.response
           setMessage(handleError(status, msg))
@@ -116,11 +82,8 @@ function MobileUsers() {
     <InnerContent>
       <PageTitle
         classname="text-2xl mb-8 flex flex-row items-center justify-between"
-        title="کاربران موبایل"
+        title="جزییات کاربران موبایل"
         icon={ChevronRight}
-        buttonTitle="اپراتور جدید"
-        downloadBtn={true}
-        btnIcon={PlusWhite}
       />
       <SimpleCollapseWrapper
         wrpperTitle="مشخصات کاربر"
@@ -210,19 +173,6 @@ function MobileUsers() {
           </div>
         ) : (
           <PerformanceReport data={userDetail['seasonorder']} />
-        )}
-      </SimpleCollapseWrapper>
-      <SimpleCollapseWrapper
-        wrpperTitle="کاربران موبایل"
-        wrpperSubtitle="لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ"
-        position="relative"
-      >
-        {mobileUsersLoading ? (
-          <div className="big-loading-parent">
-            <div className="loading-three-dot"></div>
-          </div>
-        ) : (
-          <MobileUsersList data={mobileUsers} />
         )}
       </SimpleCollapseWrapper>
       <Space WH="h-16" />

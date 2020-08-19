@@ -11,6 +11,7 @@ import Cars from './pages/Cars'
 import Charts from './pages/Charts'
 import Payments from './pages/Payments'
 import MobileUsers from './pages/MobileUsers'
+import MobileUsersDetail from './pages/MobileUsersDetail'
 import Tariffs from './pages/Tariffs'
 import Points from './pages/Points'
 import NotFound from './pages/NotFound'
@@ -92,6 +93,12 @@ const routes = [
     exact: true,
     path: '/mobile-users',
     Component: MobileUsers,
+  },
+  {
+    key: '56724567',
+    exact: true,
+    path: '/mobile-users/:id',
+    Component: MobileUsersDetail,
   },
   {
     key: '54643',

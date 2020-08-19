@@ -1,7 +1,6 @@
 import React from 'react'
-import profile from 'src/assets/images/pics/profile.webp'
 import Avatar from './Avatar'
-import { WarehouseGray, CloseWhite, RecycleGray } from 'src/utils/Icons'
+import { WarehouseGray, CloseWhite, RecycleGray, Nopic } from 'src/utils/Icons'
 import NoItem from '../components/NoItem'
 //const
 import { DAYS_OF_WEEK_NUMBER_TO_PERSIAN } from './../utils/constant'
@@ -45,10 +44,10 @@ const KioskFloatBox = (props) => {
                 <div className="flex justify-between items-center">
                   <span className="font-yekanlight text-xs text-color4">ساعت کاری</span>
                   <span className="font-yekanbold text-xs text-color2">
-                    {DAYS_OF_WEEK_NUMBER_TO_PERSIAN[data?.schedules?.start_day]} تا
-                    {DAYS_OF_WEEK_NUMBER_TO_PERSIAN[data?.schedules?.end_day]} از
-                    {data?.schedules?.start_time.substr(0, 2)} الی
-                    {data?.schedules?.end_time.substr(0, 2)}{' '}
+                    {DAYS_OF_WEEK_NUMBER_TO_PERSIAN[data?.schedules?.start_day] || 0} تا
+                    {DAYS_OF_WEEK_NUMBER_TO_PERSIAN[data?.schedules?.end_day] || 0} از
+                    {data?.schedules?.start_time?.substr(0, 2) || 0} الی
+                    {data?.schedules?.end_time?.substr(0, 2) || 0}{' '}
                   </span>
                 </div>
               </div>
@@ -59,7 +58,7 @@ const KioskFloatBox = (props) => {
                 </div>
                 <div className="flex justify-start items-center">
                   <Avatar
-                    pic={profile}
+                    pic={Nopic}
                     width="58px"
                     height="58px"
                     padding="2px"

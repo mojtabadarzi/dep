@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useLayoutEffect } from 'react'
 import { Map, TileLayer, withLeaflet } from 'react-leaflet'
 import Leaflet from 'leaflet'
 import { ReactLeafletSearch } from 'react-leaflet-search'
@@ -23,6 +23,7 @@ import {
   DeliveryTruckBlue,
   DeliveryCheckListGray,
   DeliveryCheckListBlue,
+  Nopic,
 } from 'src/utils/Icons'
 import DriverFloatBox from 'src/components/DriverFloatBox'
 import OrderFloatBox from 'src/components/OrderFloatBox'
@@ -30,6 +31,7 @@ import OrderFloatBox from 'src/components/OrderFloatBox'
 //const
 import { baseURL, ORDER_POINTS, ORDER_DETAIL, STATION_POINTS, STATION_DETAIL } from '../config'
 import { handleError } from '../utils/helpers'
+import { CITY_POINTS } from '../utils/constant'
 
 const ReactLeafletSearchComponent = withLeaflet(ReactLeafletSearch)
 
@@ -41,6 +43,8 @@ const data1 = [
 
 function LiveReport({ history, location }) {
   const token = useSelectorUserInfo().token
+  const currentCity = useSelectorUserInfo()?.city || 'تهران'
+
   const header = {
     headers: { Authorization: `jwt ${token}` },
   }
@@ -71,14 +75,26 @@ function LiveReport({ history, location }) {
     } else if (location.pathname === '/live-report/driver') {
       setActiveTabIndex(0)
     } else if (location.pathname === '/live-report/kiosk') {
-      getKioskPoints(35.697997, 51.395295, 50)
+      getKioskPoints(
+        CITY_POINTS[currentCity].center[0] || 35.6892,
+        CITY_POINTS[currentCity].center[1] || 51.389,
+        CITY_POINTS[currentCity].radius || 30000
+      )
       setActiveTabIndex(2)
     } else if (location.pathname === '/live-report/order') {
-      getOrdersPoints(37.270063, 49.584167, 50)
+      getOrdersPoints(
+        CITY_POINTS[currentCity].center[0] || 35.6892,
+        CITY_POINTS[currentCity].center[1] || 51.389,
+        CITY_POINTS[currentCity].radius || 30000
+      )
       setActiveTabIndex(1)
     } else {
       history.push('/live-report/order')
-      getOrdersPoints(37.270063, 49.584167, 50)
+      getOrdersPoints(
+        CITY_POINTS[currentCity].center[0] || 35.6892,
+        CITY_POINTS[currentCity].center[1] || 51.389,
+        CITY_POINTS[currentCity].radius || 30000
+      )
       setActiveTabIndex(1)
     }
   }, [activeTabIndex, location.pathname, history])
@@ -116,7 +132,11 @@ function LiveReport({ history, location }) {
   }
   const getOrdersPointsMap = (e) => {
     const latLng = e.target.getCenter()
-    getOrdersPoints(37.270063, 49.584167, 50)
+    getOrdersPoints(
+      CITY_POINTS[currentCity].center[0] || 35.6892,
+      CITY_POINTS[currentCity].center[1] || 51.389,
+      CITY_POINTS[currentCity].radius || 30000
+    )
     setLoading(false)
   }
   const turnMapLoadingOn = () => {
@@ -127,51 +147,35 @@ function LiveReport({ history, location }) {
     setOrdersFloatLoading(true)
     setMessageClass('message-hidden')
 
-    axios
-      .get(`${baseURL}${ORDER_DETAIL}${ID}`, header)
-      .then((response) => {
-        console.log('Detail : ', response)
-        const { data } = response
-        const floatData = {
-          id: ID,
-          userFullName: data['user']['fullname'],
-          userPhoneNumber: data['user']['phone_number'],
-          userAvatar: data['user']['avatar'],
-          userAddress: data['address']['full_address'],
-          userOrderWastes: data['userorderwastes'],
-          totalPrice: data['total_price'],
-          agentFullName: data['agent_vehicle']['agent']['fullname'],
-          agentAvatar: data['agent_vehicle']['agent']['avatar'],
-          agentStatus: data['agent_vehicle']['agent']['status'],
-          code: data['code'],
-          vehicleName:
-            data['agent_vehicle']['vehicle']['brand'] +
-            ' - ' +
-            data['agent_vehicle']['vehicle']['color'] +
-            ' - ' +
-            data['agent_vehicle']['vehicle']['model'],
-          vehiclePlate: data['agent_vehicle']['vehicle']['plate_number'],
-          createdTime: data['created_time'],
-          processTime: data['created_time'],
-        }
-        setOrdersFloat(floatData)
-        setOrdersFloatLoading(false)
-      })
-      .catch((error) => {
-        setOrdersFloatLoading(false)
-        if (error.response && error.response.status) {
-          const { status } = error.response
-          setMessage(handleError(status, ''))
-          setMessageClass('message-show')
-        } else if (error.response === undefined) {
-          setMessage(handleError(undefined, ''))
-          setMessageClass('message-show')
-        } else {
-          setMessage(handleError('', ''))
-          setMessageClass('message-show')
-        }
-        console.log('error. ___ ', error.response)
-      })
+    axios.get(`${baseURL}${ORDER_DETAIL}${ID}`, header).then((response) => {
+      console.log('order Detail : ', response)
+      const { data } = response
+      const floatData = {
+        id: ID,
+        userFullName: data?.user?.fullname || ' ... ',
+        userPhoneNumber: data?.user?.phone_number || 0,
+        userAvatar: data?.user?.avatar || Nopic,
+        userAddress: data?.address?.full_address || ' .... ',
+        userOrderWastes: data?.userorderwastes || [],
+        totalPrice: data?.total_price || 0,
+        agentFullName: data?.agent_vehicle?.agent?.fullname || ' ... ',
+        agentAvatar: data?.agent_vehicle?.agent?.avatar || Nopic,
+        code: data?.code || 0,
+        vehicleName:
+          (data?.agent_vehicle?.vehicle?.brand || ' . . . ') +
+          ' | ' +
+          (data?.agent_vehicle?.vehicle?.color || ' . . . ') +
+          ' | ' +
+          (data?.agent_vehicle?.vehicle?.model || ' . . . '),
+        vehiclePlate: data?.agent_vehicle?.vehicle?.plate_number || ' 0 ',
+        createdTime: data?.created_time || 0,
+        processTime: data?.created_time || 0,
+        status: data?.status || 100,
+      }
+      console.log('XX :: ', floatData)
+      setOrdersFloat(floatData)
+      setOrdersFloatLoading(false)
+    })
   }
 
   //kiosk
@@ -207,7 +211,11 @@ function LiveReport({ history, location }) {
   }
   const getKioskPointsMap = (e) => {
     const latLng = e.target.getCenter()
-    getKioskPoints(35.697997, 51.395295, 50)
+    getKioskPoints(
+      CITY_POINTS[currentCity].center[0] || 35.6892,
+      CITY_POINTS[currentCity].center[1] || 51.389,
+      CITY_POINTS[currentCity].radius || 30000
+    )
     setLoading(false)
   }
   const getKioskFloatBoxData = (ID) => {
@@ -220,10 +228,10 @@ function LiveReport({ history, location }) {
       .then((response) => {
         const { data } = response
         const floatData = {
-          district: data?.district,
-          schedules: data?.schedules[0],
-          title: data?.title,
-          image: data?.stationimages[0]?.image,
+          district: data?.district || ' ... ',
+          schedules: data?.schedules[0] || ' ... ',
+          title: data?.title || ' ... ',
+          image: data?.stationimages[0]?.image || Nopic,
         }
         setKioskFloat(floatData)
         setKioskFloatLoading(false)
@@ -326,9 +334,9 @@ function LiveReport({ history, location }) {
             ''
           )}
           <Map
-            center={[35.6892, 51.389]}
-            zoom={12}
-            minZoom={12}
+            center={CITY_POINTS[currentCity].center || [35.6892, 51.389]}
+            zoom={10}
+            minZoom={10}
             zoomControl={false}
             onzoomstart={turnMapLoadingOn}
             onzoomend={getOrdersPointsMap}
@@ -337,8 +345,14 @@ function LiveReport({ history, location }) {
             onclick={(e) => console.log('click : ', e.latlng)}
             maxBoundsViscosity={1.0}
             maxBounds={Leaflet.latLngBounds(
-              Leaflet.latLng(35.518623, 51.069173),
-              Leaflet.latLng(35.851337, 51.647374)
+              Leaflet.latLng(
+                CITY_POINTS[currentCity].left[0] || 35.518623,
+                CITY_POINTS[currentCity].left[1] || 51.069173
+              ),
+              Leaflet.latLng(
+                CITY_POINTS[currentCity].right[0] || 35.851337,
+                CITY_POINTS[currentCity].right[1] || 51.647374
+              )
             )}
           >
             <TileLayer
@@ -388,9 +402,9 @@ function LiveReport({ history, location }) {
             ''
           )}
           <Map
-            center={[35.6892, 51.389]}
-            zoom={12}
-            minZoom={12}
+            center={CITY_POINTS[currentCity].center || [35.6892, 51.389]}
+            zoom={10}
+            minZoom={10}
             zoomControl={false}
             onzoomstart={turnMapLoadingOn}
             onzoomend={getKioskPointsMap}
@@ -399,8 +413,14 @@ function LiveReport({ history, location }) {
             onclick={(e) => console.log('click : ', e.latlng)}
             maxBoundsViscosity={1.0}
             maxBounds={Leaflet.latLngBounds(
-              Leaflet.latLng(35.518623, 51.069173),
-              Leaflet.latLng(35.851337, 51.647374)
+              Leaflet.latLng(
+                CITY_POINTS[currentCity].left[0] || 35.518623,
+                CITY_POINTS[currentCity].left[1] || 51.069173
+              ),
+              Leaflet.latLng(
+                CITY_POINTS[currentCity].right[0] || 35.851337,
+                CITY_POINTS[currentCity].right[1] || 51.647374
+              )
             )}
           >
             <TileLayer

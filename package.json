@@ -1,6 +1,6 @@
 {
-  "homepage": "http://moji0098.github.io/newapp",
-  "name": "dobare-panel-front",
+  "homepage": "http://moji0098.github.io/dep",
+  "name": "dep",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

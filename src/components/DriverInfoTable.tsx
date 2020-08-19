@@ -156,12 +156,24 @@ function DriverInfoTable(props) {
           <td>
             <div
               className="relative h-16 text-xs font-yekanlight text-primary bg-white"
-              style={middleTD}
+              style={{
+                marginBottom: 8,
+                borderTopWidth: 1,
+                borderBottomWidth: 1,
+                borderColor: '#f7f9fc',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundImage: `url(${plak})`,
+                position: 'relative',
+                backgroundSize: 120,
+                minWidth: 120,
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center',
+              }}
             >
-              <img className="h-6" src={plak} alt={plate} />
-              <span className="absolute text-sm" style={{ right: 70 }}>
-                {plate || 0}
-              </span>
+              {/* <img className="h-6" src={plak} alt={plate} /> */}
+              <p className="absolute text-sm text-center w-full">{plate || 0}</p>
             </div>
           </td>
           <td>

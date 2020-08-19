@@ -270,7 +270,7 @@ export const agentStatusConvertorIcon = (status) => {
     case 5:
       return CloseRed
     case 15:
-      return DoneCheckGreen
+      return CheckBlue
     case 20:
       return UserVacation
     default:
@@ -286,14 +286,14 @@ export const userStatusConvertor = (fn1, fn2, fn3, status) => {
       fn3('رد شده')
       break
     case 10:
-      fn1('#64DCB6')
-      fn2('#64dcb626')
+      fn1('#1890ff')
+      fn2('#e6f7ff')
       fn3('ساخته شده')
       break
     case 15:
-      fn1('#1890ff')
-      fn2('#e6f7ff')
-      fn3('پذیرفته شده')
+      fn1('#64DCB6')
+      fn2('#64dcb626')
+      fn3('فعال')
       break
     case 20:
       fn1('#536b88')
@@ -313,9 +313,9 @@ export const userStatusConvertorIcon = (status) => {
     case 5:
       return CloseRed
     case 10:
-      return DoneCheckGreen
+      return CheckBlue
     case 15:
-      return DoubleCheck
+      return DoneCheckGreen
     case 20:
       return AlarmClockGray
     default:

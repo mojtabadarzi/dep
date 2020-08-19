@@ -130,6 +130,20 @@ const OWNERSHIP = {
   1: 'شرکت',
   2: 'استیجاری',
 }
+const CITY_POINTS = {
+  تهران: {
+    left: [35.518623, 51.069173],
+    right: [35.851337, 51.647374],
+    center: [35.6892, 51.389],
+    radius: 30000,
+  },
+  رشت: {
+    left: [36.627942, 48.421442],
+    right: [38.430784, 50.640792],
+    center: [37.2682, 49.5891],
+    radius: 10000,
+  },
+}
 
 export {
   SORTING,
@@ -147,4 +161,5 @@ export {
   ROLES,
   ROLES_NUMBER_TO_PERSIAN,
   OWNERSHIP,
+  CITY_POINTS,
 }

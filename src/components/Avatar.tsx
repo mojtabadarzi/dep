@@ -21,7 +21,7 @@ function Avatar(props) {
         width,
         height,
       }}
-      className="relative overflow-hidden"
+      className="relative"
     >
       <img
         style={{
